@@ -12,7 +12,7 @@
 
 ## 🌎 Sobre o projeto
 
-A **Horizon Earth** é uma startup fictícia criada por uma equipe de **cinco estudantes de 16 anos do curso de Informática do Instituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE) — Campus Maranguape**.
+A **Horizon Earth** é uma startup criada por uma equipe de **cinco estudantes de 16 anos do curso de Informática do Instituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE) — Campus Maranguape**.
 
 Criamos a Horizon Earth com o objetivo de utilizar a tecnologia para **ajudar pessoas afetadas por desastres naturais ao redor do mundo**.
 
@@ -79,41 +79,6 @@ As principais tecnologias planejadas para o projeto são:
 | 💾 **Banco de Dados** | Armazenamento das informações          |
 
 Outras tecnologias poderão ser adicionadas conforme o desenvolvimento do projeto.
-
----
-
-# 🏗️ Funcionamento do projeto
-
-A Horizon Earth será dividida em três partes principais:
-
-```text
-                 🌎 HORIZON EARTH
-
-                       Usuário
-                          │
-                          ▼
-                ┌─────────────────┐
-                │    Frontend     │
-                │ HTML / CSS / JS │
-                └────────┬────────┘
-                         │
-                    Requisição
-                         │
-                         ▼
-                ┌─────────────────┐
-                │     API Java    │
-                │    Backend      │
-                └────────┬────────┘
-                         │
-                    Consulta
-                         │
-                         ▼
-                ┌─────────────────┐
-                │  Banco de Dados │
-                └─────────────────┘
-```
-
-O usuário acessará a plataforma pelo frontend. O frontend realizará requisições para a API desenvolvida em Java, que será responsável pelo processamento das informações e pela comunicação com o banco de dados.
 
 ---
 
