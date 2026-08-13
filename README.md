@@ -24,6 +24,22 @@ O projeto está sendo desenvolvido como parte do **Projeto Final da disciplina d
 
 ---
 
+# 👥 Equipe
+
+Nossa equipe é formada por cinco estudantes do 2° ano do ensino médio com curso integrado em Informática do **IFCE — Campus Maranguape**.
+
+| Integrante      | GitHub                                   | Função    |
+| --------------- | ---------------------------------------- | --------- |
+| **Bryan9895**  | [GitHub](https://github.com/Bryan9895)  | A definir |
+| **CaioStack**   | [GitHub](https://github.com/CaioStack)   | A definir |
+| **MuriStack**   | [GitHub](https://github.com/MuriStack)   | A definir |
+| **MiguelStack** | [GitHub](https://github.com/MiguelStack) | A definir |
+| **ycarus-236**  | [GitHub](https://github.com/ycarus-236)  | A definir |
+
+> As funções dos integrantes serão definidas e atualizadas conforme a divisão das tarefas do projeto.
+
+---
+
 # 🎯 Objetivos
 
 ## Objetivo geral
@@ -278,24 +294,6 @@ Podem ser armazenados:
 * Materiais utilizados durante as apresentações.
 
 O guia recomenda utilizar essa pasta para apresentações sobre arquitetura, funcionalidades, modelagem e evolução do projeto.
-
----
-
-# 👥 Equipe
-
-Nossa equipe é formada por cinco estudantes do curso de Informática do **IFCE — Campus Maranguape**.
-
-| Integrante      | GitHub                                   | Função    |
-| --------------- | ---------------------------------------- | --------- |
-| **BryanStack**  | [GitHub](https://github.com/BryanStack)  | A definir |
-| **CaioStack**   | [GitHub](https://github.com/CaioStack)   | A definir |
-| **MuriStack**   | [GitHub](https://github.com/MuriStack)   | A definir |
-| **MiguelStack** | [GitHub](https://github.com/MiguelStack) | A definir |
-| **ycarus-236**  | [GitHub](https://github.com/ycarus-236)  | A definir |
-
-> As funções dos integrantes serão definidas e atualizadas conforme a divisão das tarefas do projeto.
-
-O guia recomenda apresentar nome, usuário do GitHub e função desempenhada por cada integrante.
 
 ---
 
