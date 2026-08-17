@@ -34,11 +34,11 @@ Nossa equipe é formada por cinco estudantes do 2° ano do ensino médio com cur
 
 | Integrante      | GitHub                                   | Função    |
 | --------------- | ---------------------------------------- | --------- |
-| **CaioStack**   | [GitHub](https://github.com/CaioStack)   | Full Stack |
-| **MiguelStack** | [GitHub](https://github.com/MiguelStack) | Front End |
-| **ycarus-236**  | [GitHub](https://github.com/ycarus-236)  | Front End |
-| **Bryan9895**  | [GitHub](https://github.com/Bryan9895)    | Back End |
-| **MuriStack**   | [GitHub](https://github.com/MuriStack)   | Data base |
+| **CaioStack**   | [GitHub](https://github.com/CaioStack)   | FullStack |
+| **MiguelStack** | [GitHub](https://github.com/MiguelStack) | FrontEnd |
+| **ycarus-236**  | [GitHub](https://github.com/ycarus-236)  | FrontEnd |
+| **Bryan9895**  | [GitHub](https://github.com/Bryan9895)    | BackEnd |
+| **MuriStack**   | [GitHub](https://github.com/MuriStack)   | DataBase |
 
 
 > As funções dos integrantes serão definidas e atualizadas conforme a divisão das tarefas do projeto.
