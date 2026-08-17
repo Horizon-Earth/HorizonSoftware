@@ -40,9 +40,6 @@ Nossa equipe é formada por cinco estudantes do 2° ano do ensino médio com cur
 | **Bryan9895**  | [GitHub](https://github.com/Bryan9895)    | BackEnd |
 | **MuriStack**   | [GitHub](https://github.com/MuriStack)   | DataBase |
 
-
-> As funções dos integrantes serão definidas e atualizadas conforme a divisão das tarefas do projeto.
-
 ---
 
 # 🎯 Objetivos
