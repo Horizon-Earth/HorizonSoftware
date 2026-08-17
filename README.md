@@ -4,21 +4,25 @@
 
 ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
 ![Java](https://img.shields.io/badge/Java-Backend-red?logo=openjdk)
-![HTML5](https://img.shields.io/badge/HTML5-Frontend-orange?logo=html5)
-![CSS3](https://img.shields.io/badge/CSS3-Frontend-blue?logo=css3)
-![JavaScript](https://img.shields.io/badge/JavaScript-Frontend-yellow?logo=javascript)
+![Java Swing](https://img.shields.io/badge/Java%20Swing-Frontend-orange?logo=openjdk)
+![HTML5](https://img.shields.io/badge/HTML5-Apresentação-orange?logo=html5)
+![CSS3](https://img.shields.io/badge/CSS3-Apresentação-blue?logo=css3)
 
 ---
 
-## 🌎 Sobre o projeto
+# 🌎 Sobre o projeto
 
 A **Horizon Earth** é uma startup criada por uma equipe de **cinco estudantes de 16 anos do curso de Informática do Instituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE) — Campus Maranguape**.
 
 Criamos a Horizon Earth com o objetivo de utilizar a tecnologia para **ajudar pessoas afetadas por desastres naturais ao redor do mundo**.
 
-Nosso projeto consiste no desenvolvimento de uma plataforma web voltada para o **monitoramento e visualização de riscos relacionados a desastres naturais**.
+Nosso projeto consiste no desenvolvimento de uma aplicação voltada para o **monitoramento e visualização de riscos relacionados a desastres naturais**.
 
 A aplicação pretende apresentar informações de forma simples e visual, permitindo que o usuário identifique **pontos de risco, alertas e informações relacionadas a possíveis desastres naturais**.
+
+O sistema principal será desenvolvido em **Java**, utilizando **Java Swing** para a construção da interface gráfica.
+
+Os arquivos em **HTML e CSS** serão utilizados como **material de apresentação, suporte visual e documentação do projeto**, não sendo responsáveis pela interface principal da aplicação.
 
 O projeto está sendo desenvolvido como parte do **Projeto Final da disciplina de Programação Orientada a Objetos (POO) — 2026.2**.
 
@@ -30,11 +34,12 @@ Nossa equipe é formada por cinco estudantes do 2° ano do ensino médio com cur
 
 | Integrante      | GitHub                                   | Função    |
 | --------------- | ---------------------------------------- | --------- |
-| **Bryan9895**  | [GitHub](https://github.com/Bryan9895)  | A definir |
-| **CaioStack**   | [GitHub](https://github.com/CaioStack)   | A definir |
-| **MuriStack**   | [GitHub](https://github.com/MuriStack)   | A definir |
-| **MiguelStack** | [GitHub](https://github.com/MiguelStack) | A definir |
-| **ycarus-236**  | [GitHub](https://github.com/ycarus-236)  | A definir |
+| **CaioStack**   | [GitHub](https://github.com/CaioStack)   | Full Stack |
+| **MiguelStack** | [GitHub](https://github.com/MiguelStack) | Front End |
+| **ycarus-236**  | [GitHub](https://github.com/ycarus-236)  | Front End |
+| **Bryan9895**  | [GitHub](https://github.com/Bryan9895)    | Back End |
+| **MuriStack**   | [GitHub](https://github.com/MuriStack)   | Data base |
+
 
 > As funções dos integrantes serão definidas e atualizadas conforme a divisão das tarefas do projeto.
 
@@ -44,7 +49,7 @@ Nossa equipe é formada por cinco estudantes do 2° ano do ensino médio com cur
 
 ## Objetivo geral
 
-Desenvolver uma plataforma capaz de apresentar informações sobre riscos de desastres naturais, utilizando tecnologia para facilitar o acesso e a compreensão dessas informações.
+Desenvolver uma aplicação capaz de apresentar informações sobre riscos de desastres naturais, utilizando tecnologia para facilitar o acesso e a compreensão dessas informações.
 
 ## Objetivos específicos
 
@@ -54,7 +59,8 @@ Desenvolver uma plataforma capaz de apresentar informações sobre riscos de des
 * 📊 Organizar os dados de maneira simples e visual;
 * 🌎 Ajudar na conscientização sobre riscos naturais;
 * 💻 Aplicar conhecimentos de programação orientada a objetos;
-* 🔗 Integrar frontend, backend e banco de dados;
+* 🖥️ Desenvolver uma interface gráfica utilizando Java Swing;
+* 🔗 Integrar a aplicação Java com o banco de dados;
 * 📚 Registrar todas as etapas do desenvolvimento do projeto.
 
 ---
@@ -86,13 +92,17 @@ Criar uma plataforma capaz de alcançar diferentes regiões e ajudar cada vez ma
 
 As principais tecnologias planejadas para o projeto são:
 
-| Tecnologia            | Utilização                             |
-| --------------------- | -------------------------------------- |
-| ☕ **Java**            | Backend e API                          |
-| 🌐 **HTML5**          | Estrutura da página                    |
-| 🎨 **CSS3**           | Estilização da interface               |
-| ⚡ **JavaScript**      | Interatividade e comunicação com a API |
-| 💾 **Banco de Dados** | Armazenamento das informações          |
+| Tecnologia            | Utilização                                      |
+| --------------------- | ----------------------------------------------- |
+| ☕ **Java**            | Desenvolvimento da aplicação e regras de negócio |
+| 🖥️ **Java Swing**     | Interface gráfica principal da aplicação       |
+| 🌐 **HTML5**          | Apresentação e suporte visual do projeto       |
+| 🎨 **CSS3**            | Estilização da apresentação e materiais visuais |
+| 💾 **Banco de Dados** | Armazenamento das informações                   |
+
+O **Java Swing será responsável pelo frontend da aplicação real**.
+
+O **HTML e CSS não serão utilizados como frontend do sistema**, sendo utilizados como recursos complementares para apresentação, documentação e suporte visual do projeto.
 
 Outras tecnologias poderão ser adicionadas conforme o desenvolvimento do projeto.
 
@@ -109,16 +119,22 @@ Horizon-Earth/
 │
 ├── CF/
 │   ├── frontend/
-│   │   ├── index.html
-│   │   ├── css/
-│   │   └── js/
+│   │   ├── src/
+│   │   │   └── *.java
+│   │   │
+│   │   └── bin/
+│   │       └── *.class
 │   │
-│   └── backend/
-│       ├── src/
-│       │   └── *.java
-│       │
-│       └── bin/
-│           └── *.class
+│   ├── backend/
+│   │   ├── src/
+│   │   │   └── *.java
+│   │   │
+│   │   └── bin/
+│   │       └── *.class
+│   │
+│   └── apresentacao/
+│       ├── index.html
+│       └── css/
 │
 ├── MBD/
 │   ├── DER/
@@ -153,309 +169,3 @@ Horizon-Earth/
 └── PPT/
     ├── apresentacao/
     └── pdf/
-```
-
-Essa organização segue a estrutura recomendada pelo guia, que prevê as pastas `CF`, `MBD`, `DESIGNER`, `ICONS`, `UTEIS`, `UML` e `PPT`.
-
----
-
-# 📂 Pastas
-
-### 💻 CF — Código Fonte
-
-A pasta `CF` contém o código-fonte do projeto.
-
-```text
-CF/
-├── frontend/
-└── backend/
-```
-
-No frontend ficarão os arquivos:
-
-* `.html`
-* `.css`
-* `.js`
-
-No backend ficarão os arquivos:
-
-* `.java`
-* `.class`
-* demais arquivos necessários para execução do projeto.
-
-O guia recomenda que a pasta `CF` concentre todo o código-fonte, arquivos do projeto, bibliotecas e recursos necessários para compilação.
-
----
-
-### 💾 MBD — Modelo de Banco de Dados
-
-A pasta `MBD` será responsável por armazenar os arquivos relacionados ao banco de dados.
-
-```text
-MBD/
-├── DER/
-├── DL/
-└── SQL/
-```
-
-Poderão ser armazenados:
-
-* 📈 DER — Diagrama Entidade-Relacionamento;
-* 📑 DL — Diagrama Lógico;
-* 💾 Scripts SQL;
-* 📋 Scripts para inserção de dados.
-
-Essa organização segue diretamente a estrutura indicada no guia da disciplina.
-
----
-
-### 🎨 DESIGNER
-
-Aqui serão armazenados os materiais relacionados à identidade visual da Horizon Earth.
-
-Exemplos:
-
-* Logo;
-* Paleta de cores;
-* Tipografia;
-* Identidade visual;
-* Artes utilizadas;
-* Materiais de design.
-
-O guia recomenda utilizar essa pasta para concentrar a identidade visual do projeto.
-
----
-
-### ✨ ICONS
-
-Pasta destinada aos ícones utilizados no projeto.
-
-Podem ser armazenados arquivos:
-
-* `.png`
-* `.svg`
-* `.ico`
-* outros formatos gráficos.
-
----
-
-### 🧰 UTEIS
-
-A pasta `UTEIS` será utilizada para materiais auxiliares e documentos utilizados durante o desenvolvimento.
-
-```text
-UTEIS/
-├── reunioes/
-├── documentos/
-├── prototipos/
-├── wireframes/
-├── mockups/
-└── outros/
-```
-
-Aqui também poderão ser armazenados:
-
-* 📝 Atas e documentos de reuniões;
-* 💡 Ideias;
-* 🎨 Protótipos;
-* 📐 Wireframes;
-* 🖼️ Mockups;
-* 📄 Documentos de apoio;
-* Outros arquivos importantes.
-
-A pasta `UTEIS` é prevista pelo guia justamente para materiais auxiliares, mockups, protótipos, wireframes, fluxogramas e documentos de apoio.
-
----
-
-### 📐 UML
-
-Nesta pasta serão armazenados os diagramas UML utilizados durante o desenvolvimento.
-
-Entre eles:
-
-* Diagrama de Classes;
-* Casos de Uso;
-* Diagrama de Sequência;
-* Diagrama de Atividades;
-* Outros diagramas necessários.
-
----
-
-### 📊 PPT
-
-Pasta destinada às apresentações da Horizon Earth.
-
-Podem ser armazenados:
-
-* Arquivos `.pptx`;
-* Arquivos `.pdf`;
-* Apresentações da N1;
-* Apresentações da N2;
-* Materiais utilizados durante as apresentações.
-
-O guia recomenda utilizar essa pasta para apresentações sobre arquitetura, funcionalidades, modelagem e evolução do projeto.
-
----
-
-# 📸 Imagens e protótipos
-
-Os protótipos, wireframes, mockups e outras imagens produzidas durante o desenvolvimento serão armazenados na pasta:
-
-```text
-UTEIS/
-```
-
-Os materiais finais de identidade visual ficarão em:
-
-```text
-DESIGNER/
-```
-
-E os ícones utilizados pela aplicação ficarão em:
-
-```text
-ICONS/
-```
-
----
-
-# 💾 Banco de Dados
-
-O banco de dados ainda está em desenvolvimento.
-
-A princípio, ele poderá armazenar informações relacionadas a:
-
-* 📍 Localização dos pontos de risco;
-* 🌪️ Tipo de desastre;
-* 🚨 Nível de risco;
-* 📅 Data dos eventos;
-* 📝 Informações sobre os eventos;
-* 🌎 Outras informações necessárias para a aplicação.
-
-Os diagramas e scripts do banco serão armazenados na pasta `MBD`.
-
----
-
-# 📚 Documentação
-
-Durante o desenvolvimento, a equipe irá registrar as principais etapas do projeto.
-
-Entre os materiais documentados estarão:
-
-* 📋 Requisitos;
-* 📝 Reuniões;
-* 🔎 Pesquisas;
-* 🎨 Protótipos;
-* 📐 Diagramas UML;
-* 💾 Modelagem do banco de dados;
-* 💻 Desenvolvimento;
-* 🧪 Testes;
-* 📊 Apresentações;
-* 🚀 Evolução do projeto.
-
-O guia também recomenda documentar diagramas de classes, casos de uso, DER, modelo lógico, protótipos e slides das apresentações.
-
----
-
-# 🚀 Como executar
-
-> 🚧 As instruções de execução serão adicionadas conforme o desenvolvimento do projeto avançar.
-
-Inicialmente, o projeto será dividido entre frontend e backend.
-
-### Backend
-
-O backend será desenvolvido em Java.
-
-```text
-CF/backend/
-```
-
-### Frontend
-
-O frontend será desenvolvido utilizando HTML, CSS e JavaScript.
-
-```text
-CF/frontend/
-```
-
-As instruções completas de compilação, configuração do banco de dados e execução serão adicionadas posteriormente.
-
----
-
-# 🌱 Desenvolvimento
-
-O projeto será desenvolvido gradualmente durante o semestre.
-
-* [ * ] Definição do problema
-* [ ] Definição dos objetivos
-* [ ] Pesquisa sobre desastres naturais
-* [ ] Levantamento de requisitos
-* [ ] Criação da identidade visual
-* [ ] Criação dos protótipos
-* [ ] Modelagem UML
-* [ ] Modelagem do banco de dados
-* [ ] Desenvolvimento do frontend
-* [ ] Desenvolvimento da API Java
-* [ ] Integração com o banco de dados
-* [ ] Integração frontend + backend
-* [ ] Testes
-* [ ] Preparação da apresentação
-* [ ] Demonstração do projeto
-
----
-
-# 🌿 Commits
-
-Durante o desenvolvimento, procuraremos manter commits pequenos, frequentes e com mensagens que expliquem claramente o que foi realizado.
-
-### Exemplos:
-
-```text
-Criada tela de Login
-```
-
-```text
-Implementado CRUD de Contatos
-```
-
-```text
-Corrigido erro de conexão com MySQL
-```
-
-```text
-Atualizado README
-```
-
-```text
-Criado DER
-```
-
-O guia recomenda manter um histórico organizado, com commits pequenos, frequentes e mensagens claras, evitando mensagens genéricas como `teste`, `aaaa`, `123` ou `update`.
-
----
-
-# 📊 Organização do GitHub
-
-Sempre que possível, a equipe utilizará os recursos do GitHub para organizar o desenvolvimento:
-
-* **Issues** — registrar problemas e tarefas;
-* **Projects** — organizar as atividades;
-* **Milestones** — acompanhar etapas importantes;
-* **Releases** — registrar versões do projeto.
-
-Esses recursos são recomendados pelo guia para auxiliar no planejamento e na divisão das tarefas.
-
----
-
-# 📌 Status
-
-🟡 **Em desenvolvimento**
-
-A Horizon Earth ainda está sendo desenvolvida e poderá receber novas funcionalidades, alterações e melhorias ao longo do semestre.
-
----
-
-# 🌎 Horizon Earth
-
-> **Cinco estudantes, uma ideia e um objetivo: usar a tecnologia para ajudar pessoas afetadas por desastres naturais.**
