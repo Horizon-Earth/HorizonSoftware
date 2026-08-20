@@ -149,7 +149,7 @@ Horizon-Earth/
 │   ├── svg/
 │   └── ico/
 │
-├── UTEIS/
+├── DOCS/
 │   ├── reunioes/
 │   ├── documentos/
 │   ├── prototipos/
