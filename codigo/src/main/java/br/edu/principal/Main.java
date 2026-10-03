@@ -1,8 +1,10 @@
 package br.edu.principal;
 
 import javafx.application.Application;
+import javafx.scene.AmbientLight;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
+import javafx.scene.PointLight;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.image.Image;
@@ -43,8 +45,18 @@ public class Main extends Application {
     public void start(Stage stage) {
         Sphere earth = buildEarth();
 
-        Group root = new Group(earth);
-        root.getTransforms().addAll(rotateX, rotateY);
+        // Só o globo gira; as luzes ficam paradas para dar a sensação de volume
+        Group globe = new Group(earth);
+        globe.getTransforms().addAll(rotateX, rotateY);
+
+        PointLight sun = new PointLight(Color.WHITE);
+        sun.setTranslateX(-400);
+        sun.setTranslateY(-300);
+        sun.setTranslateZ(-700);
+
+        AmbientLight ambient = new AmbientLight(Color.rgb(50, 55, 70));
+
+        Group root = new Group(globe, sun, ambient);
 
         Scene scene = new Scene(root, 900, 650, true, SceneAntialiasing.BALANCED);
         scene.setFill(Color.rgb(10, 10, 20));
@@ -78,6 +90,8 @@ public class Main extends Application {
         } else {
             material.setDiffuseColor(Color.rgb(40, 90, 160));
         }
+        material.setSpecularColor(Color.rgb(180, 200, 255));
+        material.setSpecularPower(25);
 
         sphere.setMaterial(material);
         return sphere;
