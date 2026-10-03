@@ -19,14 +19,13 @@ import javafx.stage.Stage;
 /**
  * Horizon Earth - primeira versão: apenas o globo 3D.
  *
- * Mostra uma esfera texturizada com o mapa-múndi, que pode ser
- * girada arrastando o mouse e ter o zoom ajustado com o scroll.
+ * Mostra uma esfera com o mapa-múndi que pode ser girada arrastando o mouse
+ * e ter o zoom ajustado com o scroll.
  *
- * Antes de rodar, coloque uma imagem de mapa-múndi em projeção
- * equirretangular (largura : altura = 2 : 1) em:
- *   src/main/resources/earth_texture.jpg
+ * A textura fica em src/main/resources/earth_texture.jpg (imagem
+ * equirretangular, proporção 2:1). Sem a imagem, o globo aparece azul sólido.
  *
- * Para rodar: mvn javafx:run
+ * Para rodar no Eclipse: Run As > Maven build... > Goals: clean compile javafx:run
  */
 public class Main extends Application {
 
@@ -94,6 +93,11 @@ public class Main extends Application {
         material.setSpecularPower(25);
 
         sphere.setMaterial(material);
+
+        // Opcional: descomente a linha abaixo (e o import de DrawMode)
+        // para ver o globo como uma malha de linhas e notar a rotação.
+        // sphere.setDrawMode(javafx.scene.shape.DrawMode.LINE);
+
         return sphere;
     }
 
@@ -125,8 +129,13 @@ public class Main extends Application {
             double deltaX = event.getSceneX() - mouseAnchorX;
             double deltaY = event.getSceneY() - mouseAnchorY;
 
+            // Arrastar para os lados gira o globo em volta do eixo dos polos
             rotateY.setAngle(anchorAngleY + deltaX * 0.3);
-            rotateX.setAngle(anchorAngleX - deltaY * 0.3);
+
+            // Arrastar para cima/baixo inclina o globo, limitado a +-90 graus
+            // para ele nunca virar de cabeça para baixo (como no Google Earth)
+            double tilt = anchorAngleX - deltaY * 0.3;
+            rotateX.setAngle(Math.max(-90, Math.min(90, tilt)));
         });
     }
 
