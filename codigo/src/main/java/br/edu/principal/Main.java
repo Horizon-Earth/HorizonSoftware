@@ -12,18 +12,27 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.CullFace;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 /**
- * Horizon Earth - primeira versão: apenas o globo 3D.
+ * Horizon Earth - V.1.1.0: globo mais realista.
  *
- * Mostra uma esfera com o mapa-múndi que pode ser girada arrastando o mouse
- * e ter o zoom ajustado com o scroll.
+ * Novidades desta versão:
+ *  - Textura de satélite da NASA (Blue Marble) em alta resolução
+ *  - Esfera mais lisa (mais divisões na malha)
+ *  - Oceano com brilho e continentes foscos (mapa especular)
+ *  - Céu estrelado ao fundo
  *
- * A textura fica em src/main/resources/earth_texture.jpg (imagem
- * equirretangular, proporção 2:1). Sem a imagem, o globo aparece azul sólido.
+ * Controles: arraste o mouse para girar/inclinar e use o scroll para o zoom.
+ *
+ * Arquivos em src/main/resources (todos opcionais; sem eles o programa
+ * continua rodando com cores simples):
+ *   earth_texture.jpg   - mapa-múndi equirretangular (proporção 2:1)
+ *   earth_specular.png  - mapa de brilho (branco = oceano brilhante)
+ *   stars.jpg           - céu estrelado
  *
  * Para rodar no Eclipse: Run As > Maven build... > Goals: clean compile javafx:run
  */
@@ -42,28 +51,29 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        Sphere sky = buildSky();
         Sphere earth = buildEarth();
 
-        // Só o globo gira; as luzes ficam paradas para dar a sensação de volume
+        // Só o globo gira; céu e luzes ficam parados
         Group globe = new Group(earth);
         globe.getTransforms().addAll(rotateX, rotateY);
 
         PointLight sun = new PointLight(Color.WHITE);
-        sun.setTranslateX(-400);
+        sun.setTranslateX(-500);
         sun.setTranslateY(-300);
-        sun.setTranslateZ(-700);
+        sun.setTranslateZ(-800);
 
-        AmbientLight ambient = new AmbientLight(Color.rgb(50, 55, 70));
+        AmbientLight ambient = new AmbientLight(Color.rgb(45, 50, 65));
 
-        Group root = new Group(globe, sun, ambient);
+        Group root = new Group(sky, globe, sun, ambient);
 
         Scene scene = new Scene(root, 900, 650, true, SceneAntialiasing.BALANCED);
-        scene.setFill(Color.rgb(10, 10, 20));
+        scene.setFill(Color.BLACK);
 
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setTranslateZ(-700);
-        camera.setNearClip(0.1);
-        camera.setFarClip(2000);
+        camera.setNearClip(1);
+        camera.setFarClip(10000);
         scene.setCamera(camera);
 
         attachMouseControls(scene);
@@ -75,43 +85,61 @@ public class Main extends Application {
     }
 
     /**
-     * Cria a esfera e aplica a textura do planeta.
-     * Se a imagem não for encontrada, usa uma cor sólida como fallback,
-     * assim o projeto ainda roda mesmo sem a textura configurada.
+     * Cria a esfera do planeta com a textura de satélite.
+     * Se a imagem não for encontrada, usa uma cor sólida como fallback.
      */
     private Sphere buildEarth() {
-        Sphere sphere = new Sphere(SPHERE_RADIUS);
+        Sphere sphere = new Sphere(SPHERE_RADIUS, 128);
         PhongMaterial material = new PhongMaterial();
 
-        Image texture = loadTexture("/earth_texture.jpg");
+        Image texture = loadImage("/earth_texture.jpg");
         if (texture != null) {
             material.setDiffuseMap(texture);
         } else {
             material.setDiffuseColor(Color.rgb(40, 90, 160));
         }
-        material.setSpecularColor(Color.rgb(180, 200, 255));
-        material.setSpecularPower(25);
+
+        // Brilho só no oceano: o mapa especular é branco na água e preto na terra
+        Image specular = loadImage("/earth_specular.png");
+        if (specular != null) {
+            material.setSpecularMap(specular);
+            material.setSpecularColor(Color.WHITE);
+            material.setSpecularPower(40);
+        }
 
         sphere.setMaterial(material);
-
-        // Opcional: descomente a linha abaixo (e o import de DrawMode)
-        // para ver o globo como uma malha de linhas e notar a rotação.
-        // sphere.setDrawMode(javafx.scene.shape.DrawMode.LINE);
-
         return sphere;
     }
 
-    private Image loadTexture(String resourcePath) {
+    /**
+     * Esfera enorme em volta de tudo, com o céu estrelado por dentro.
+     * CullFace.FRONT faz aparecer o lado de dentro da esfera.
+     */
+    private Sphere buildSky() {
+        Sphere dome = new Sphere(4000, 64);
+        dome.setCullFace(CullFace.FRONT);
+
+        PhongMaterial material = new PhongMaterial(Color.BLACK);
+        Image stars = loadImage("/stars.jpg");
+        if (stars != null) {
+            // Autoiluminação: as estrelas brilham sem depender da luz da cena
+            material.setSelfIlluminationMap(stars);
+        }
+        dome.setMaterial(material);
+        return dome;
+    }
+
+    private Image loadImage(String resourcePath) {
         try {
             var stream = getClass().getResourceAsStream(resourcePath);
             if (stream == null) {
-                System.out.println("Aviso: textura não encontrada em " + resourcePath
-                        + " -- usando cor sólida como fallback.");
+                System.out.println("Aviso: imagem não encontrada em " + resourcePath
+                        + " -- usando visual simples no lugar.");
                 return null;
             }
             return new Image(stream);
         } catch (Exception e) {
-            System.out.println("Erro ao carregar textura: " + e.getMessage());
+            System.out.println("Erro ao carregar " + resourcePath + ": " + e.getMessage());
             return null;
         }
     }
@@ -146,7 +174,7 @@ public class Main extends Application {
             double newZ = camera.getTranslateZ() + zoomDelta;
 
             // Limita o quanto dá pra aproximar/afastar
-            newZ = Math.max(-1500, Math.min(-250, newZ));
+            newZ = Math.max(-1500, Math.min(-300, newZ));
             camera.setTranslateZ(newZ);
         });
     }

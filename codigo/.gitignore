@@ -1,1 +1,8 @@
-$# Maven\ntarget/\n\n# Eclipse\n.project\n.classpath\n.settings/\nbin/\n
+# Maven
+target/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
