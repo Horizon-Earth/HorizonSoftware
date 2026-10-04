@@ -1,48 +1,62 @@
-# Horizon Earth — Globo 3D (V.1.1.0)
+# 🌍 Terra3d — Horizon Earth
 
-Modelo 3D da Terra em JavaFX. Nesta versão o globo ficou mais realista.
+Protótipo do planeta 3D em JavaFX, desenvolvido como base da visualização ambiental do Horizon Earth.
 
-## O que já funciona
-- Esfera 3D com textura de satélite da NASA (Blue Marble)
-- Oceano com brilho e continentes foscos
-- Céu estrelado ao fundo
-- Rotação e inclinação arrastando o mouse (inclinação limitada a 90 graus)
-- Zoom com o scroll
+## Funcionalidades atuais
 
-## O que falta (próximos passos)
-- Movimento mais suave (inércia, rotação automática, zoom suave)
-- Países clicáveis (destacar o país escolhido)
-- Tela de login
-- Menu (agenda de contatos / globo)
-- Busca de clima, população e notícias por país
+- Esfera com textura do planeta.
+- Mapa especular para o brilho dos oceanos.
+- Céu estrelado, iluminação e câmera em perspectiva.
+- Rotação e inclinação ao arrastar o mouse.
+- Zoom pela roda do mouse.
+- Visual simples de fallback quando uma textura não é encontrada.
 
-## Como rodar no Eclipse
-1. `File > Import... > Maven > Existing Maven Projects` e escolha a pasta que contém o `pom.xml`.
-2. Botão direito no projeto > `Run As > Maven build...` (com os três pontinhos).
-3. No campo **Goals**, digite: `clean compile javafx:run`
-4. Clique em **Run**. Na primeira vez o Maven baixa o JavaFX, então precisa de internet.
+O código atual não consulta APIs nem identifica regiões clicadas. A seleção de regiões e a consulta de clima e desastres são objetivos da próxima etapa.
 
-Requer Java 17 ou superior.
+## Tecnologias
 
-## Imagens (src/main/resources)
-- `earth_texture.jpg` — mapa-múndi equirretangular (4096x2048), NASA Blue Marble
-- `earth_specular.png` — mapa de brilho (branco = oceano brilhante)
-- `stars.jpg` — céu estrelado, gerado para o projeto
+Java 17, JavaFX 21.0.2 e Maven. É necessário um ambiente gráfico com suporte a JavaFX 3D.
 
-Todas são opcionais: sem elas o programa roda com cores simples.
+## Como executar
 
-## Estrutura
-```
-projeto/
-├── pom.xml
-├── README.md
-└── src/main/
-    ├── java/br/edu/principal/Main.java
-    └── resources/
-        ├── earth_texture.jpg
-        ├── earth_specular.png
-        └── stars.jpg
+```bash
+git clone https://github.com/Horizon-Earth/Terra3d.git
+cd Terra3d/codigo
+mvn clean compile javafx:run
 ```
 
-## Créditos
-Textura da Terra: NASA Visible Earth (Blue Marble), domínio público.
+No NetBeans ou em outra IDE com suporte Maven, abra a pasta `codigo/`, que contém `pom.xml`, e execute a meta `javafx:run`.
+
+## Organização
+
+| Caminho | Conteúdo |
+| --- | --- |
+| `codigo/pom.xml` | Dependências e execução Maven |
+| `codigo/src/main/java/br/edu/principal/Main.java` | Cena 3D e controles |
+| `codigo/src/main/resources/earth_texture.jpg` | Textura do planeta |
+| `codigo/src/main/resources/earth_specular.png` | Mapa de brilho |
+| `codigo/src/main/resources/stars.jpg` | Fundo estrelado |
+
+## Próximas etapas
+
+Identificar coordenadas no globo, selecionar regiões, integrar APIs e conectar o protótipo ao login e ao menu principal. Documentar a origem e as condições de uso de cada textura utilizada.
+
+## Equipe
+
+Projeto acadêmico de Programação Orientada a Objetos — IFCE, Campus Maranguape, 2026.2.
+
+| Integrante | Área | GitHub |
+| --- | --- | --- |
+| CaioStack | Full Stack | [CaioStack](https://github.com/CaioStack) |
+| MuriStack | Banco de dados | [MuriStack](https://github.com/MuriStack) |
+| BryanStack | Backend | [Bryan9895](https://github.com/Bryan9895) |
+| MarioStack | Frontend | [ycarus-236](https://github.com/ycarus-236) |
+| MiguelStack | Frontend e design | [MiguelStack](https://github.com/MiguelStack) |
+
+## Contribuição
+
+Crie uma branch para a alteração, faça commits claros e abra um pull request. Confira a execução e os testes disponíveis antes de integrar à `main`.
+
+## Licença
+
+Código e documentação próprios da Horizon Earth distribuídos sob a [licença MIT](LICENSE). Materiais externos, imagens, texturas e dados de APIs mantêm suas licenças e atribuições originais.
