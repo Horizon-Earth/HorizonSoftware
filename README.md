@@ -12,8 +12,6 @@ Modelo 3D da Terra em JavaFX. Nesta versão o globo ficou mais realista.
 ## O que falta (próximos passos)
 - Movimento mais suave (inércia, rotação automática, zoom suave)
 - Países clicáveis (destacar o país escolhido)
-- Tela de login
-- Menu (agenda de contatos / globo)
 - Busca de clima, população e notícias por país
 
 ## Como rodar no Eclipse
