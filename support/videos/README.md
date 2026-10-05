@@ -1,17 +1,13 @@
-# support/videos
-
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+# 📁 videos
 
 Links de vídeos e videoaulas usados como apoio. Registre título e URL no README, evitando arquivos de vídeo grandes.
 
-### Estado atual
+## 📌 Aguardando conteúdo
 
-Esta pasta ainda não contém os materiais previstos, além deste README. Ainda não foram adicionados materiais de consulta ou referências a esta pasta.
+Ainda não foram registrados links de vídeos e videoaulas.
 
-### Conteúdo
+Ao adicionar uma referência, registre o título, o link e o assunto. Evite armazenar vídeos grandes no repositório.
 
-Nenhum arquivo de conteúdo foi adicionado até o momento.
+---
 
-[Voltar ao README do projeto](../../README.md).
-<!-- estrutura-guia:fim -->
+[← Visão geral do projeto](../../README.md) · [Pasta anterior](../README.md)

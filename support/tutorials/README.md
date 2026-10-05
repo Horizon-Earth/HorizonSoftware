@@ -1,17 +1,11 @@
-# support/tutorials
-
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+# 📁 tutorials
 
 Tutoriais e passos de instalação, configuração e execução das tecnologias do projeto.
 
-### Estado atual
+## 📌 Aguardando conteúdo
 
-Esta pasta ainda não contém os materiais previstos, além deste README. Ainda não foram adicionados materiais de consulta ou referências a esta pasta.
+Ainda não foram adicionados tutoriais ou passos de configuração.
 
-### Conteúdo
+---
 
-Nenhum arquivo de conteúdo foi adicionado até o momento.
-
-[Voltar ao README do projeto](../../README.md).
-<!-- estrutura-guia:fim -->
+[← Visão geral do projeto](../../README.md) · [Pasta anterior](../README.md)

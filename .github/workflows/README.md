@@ -1,19 +1,13 @@
-# .github/workflows
-
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+# 📁 workflows
 
 Automações do GitHub Actions.
 
-### Estado atual
+## Arquivos desta pasta
 
-Esta pasta contém arquivos do projeto ou materiais nas subpastas abaixo.
+| Arquivo | Finalidade |
+| :--- | :--- |
+| [java.yml](java.yml) | Configuração de uma automação do GitHub Actions. |
 
-### Conteúdo
+---
 
-| Item | Descrição |
-| --- | --- |
-| [java.yml](java.yml) | Arquivo existente relacionado à finalidade desta pasta. |
-
-[Voltar ao README do projeto](../../README.md).
-<!-- estrutura-guia:fim -->
+[← Visão geral do projeto](../../README.md) · [Pasta anterior](../README.md)

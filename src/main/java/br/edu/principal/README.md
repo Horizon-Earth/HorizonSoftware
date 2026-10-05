@@ -1,19 +1,13 @@
-# src/main/java/br/edu/principal
+# 📁 principal
 
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+Classe Main que cria o planeta, a câmera, a iluminação e os controles de interação.
 
-Organiza as classes Java e os subpacotes deste caminho, preservando a estrutura dos pacotes declarados no código.
+## Arquivos desta pasta
 
-### Estado atual
+| Arquivo | Finalidade |
+| :--- | :--- |
+| [Main.java](Main.java) | Inicialização e interface principal da aplicação. |
 
-Esta pasta contém arquivos do projeto ou materiais nas subpastas abaixo.
+---
 
-### Conteúdo
-
-| Item | Descrição |
-| --- | --- |
-| [Main.java](Main.java) | Classe Java do pacote. |
-
-[Voltar ao README do projeto](../../../../../../README.md).
-<!-- estrutura-guia:fim -->
+[← Visão geral do projeto](../../../../../../README.md) · [Pasta anterior](../README.md)

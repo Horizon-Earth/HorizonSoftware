@@ -1,17 +1,11 @@
-# database/scripts
-
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+# 📁 scripts
 
 Scripts SQL para criação, alteração e carga de dados do banco.
 
-### Estado atual
+## 📌 Aguardando conteúdo
 
-Esta pasta ainda não contém os materiais previstos, além deste README. O protótipo atual renderiza o globo e não utiliza banco de dados. Esta pasta foi reservada para uma possível etapa de persistência; os modelos e scripts ainda não foram produzidos.
+O protótipo do planeta ainda não utiliza banco de dados. Esta pasta está reservada para uma eventual etapa de persistência; os modelos e scripts ainda não foram produzidos.
 
-### Conteúdo
+---
 
-Nenhum arquivo de conteúdo foi adicionado até o momento.
-
-[Voltar ao README do projeto](../../README.md).
-<!-- estrutura-guia:fim -->
+[← Visão geral do projeto](../../README.md) · [Pasta anterior](../README.md)

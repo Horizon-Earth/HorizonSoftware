@@ -1,19 +1,13 @@
-# src/main/java/br
+# 📁 br
 
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+Subpacotes Java que organizam as classes da aplicação.
 
-Organiza as classes Java e os subpacotes deste caminho, preservando a estrutura dos pacotes declarados no código.
+## Explore as subpastas
 
-### Estado atual
+| Pasta | O que você encontra |
+| :--- | :--- |
+| 📁 [edu/](edu/README.md) | Subpacotes Java que organizam as classes da aplicação. |
 
-Esta pasta contém arquivos do projeto ou materiais nas subpastas abaixo.
+---
 
-### Conteúdo
-
-| Item | Descrição |
-| --- | --- |
-| [edu/](edu/README.md) | Subpasta de organização do projeto. |
-
-[Voltar ao README do projeto](../../../../README.md).
-<!-- estrutura-guia:fim -->
+[← Visão geral do projeto](../../../../README.md) · [Pasta anterior](../README.md)

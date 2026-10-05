@@ -1,19 +1,13 @@
-# src
-
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+# 💻 src
 
 Código-fonte da aplicação, organizado em pacotes e classes.
 
-### Estado atual
+## Explore as subpastas
 
-Esta pasta contém arquivos do projeto ou materiais nas subpastas abaixo.
+| Pasta | O que você encontra |
+| :--- | :--- |
+| 📁 [main/](main/README.md) | Código principal da aplicação, separado do código de testes. |
 
-### Conteúdo
+---
 
-| Item | Descrição |
-| --- | --- |
-| [main/](main/README.md) | Subpasta de organização do projeto. |
-
-[Voltar ao README do projeto](../README.md).
-<!-- estrutura-guia:fim -->
+[← Visão geral do projeto](../README.md)

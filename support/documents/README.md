@@ -1,17 +1,11 @@
-# support/documents
-
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+# 📁 documents
 
 Guias da disciplina, apostilas, artigos e manuais utilizados para consulta.
 
-### Estado atual
+## 📌 Aguardando conteúdo
 
-Esta pasta ainda não contém os materiais previstos, além deste README. Ainda não foram adicionados materiais de consulta ou referências a esta pasta.
+Ainda não foram adicionados documentos de consulta.
 
-### Conteúdo
+---
 
-Nenhum arquivo de conteúdo foi adicionado até o momento.
-
-[Voltar ao README do projeto](../../README.md).
-<!-- estrutura-guia:fim -->
+[← Visão geral do projeto](../../README.md) · [Pasta anterior](../README.md)

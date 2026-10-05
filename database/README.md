@@ -1,21 +1,19 @@
-# database
-
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+# 🗄️ database
 
 Modelagem e estrutura do banco de dados; reúne DER, diagrama lógico e scripts SQL.
 
-### Estado atual
+## Explore as subpastas
 
-Esta pasta ainda não contém os materiais previstos, além deste README. O protótipo atual renderiza o globo e não utiliza banco de dados. Esta pasta foi reservada para uma possível etapa de persistência; os modelos e scripts ainda não foram produzidos.
+| Pasta | O que você encontra |
+| :--- | :--- |
+| 📁 [DER/](DER/README.md) | Diagramas Entidade-Relacionamento e arquivos editáveis de modelagem do banco. |
+| 📁 [DL/](DL/README.md) | Diagrama lógico, tabelas, campos, chaves e relacionamentos do banco. |
+| 📁 [scripts/](scripts/README.md) | Scripts SQL para criação, alteração e carga de dados do banco. |
 
-### Conteúdo
+## 📌 Aguardando conteúdo
 
-| Item | Descrição |
-| --- | --- |
-| [DER/](DER/README.md) | Diagramas Entidade-Relacionamento e arquivos editáveis de modelagem do banco. |
-| [DL/](DL/README.md) | Diagrama lógico, tabelas, campos, chaves e relacionamentos do banco. |
-| [scripts/](scripts/README.md) | Scripts SQL para criação, alteração e carga de dados do banco. |
+O protótipo do planeta ainda não utiliza banco de dados. Esta pasta está reservada para uma eventual etapa de persistência; os modelos e scripts ainda não foram produzidos.
 
-[Voltar ao README do projeto](../README.md).
-<!-- estrutura-guia:fim -->
+---
+
+[← Visão geral do projeto](../README.md)
