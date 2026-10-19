@@ -1,5 +1,6 @@
 package br.edu.principal;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
@@ -15,81 +16,230 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.CullFace;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 /**
- * Horizon Earth - V.1.1.0: globo mais realista.
+ * Horizon Earth - V.1.2.0: câmera orbital, como no Google Earth.
  *
- * Novidades desta versão:
- *  - Textura de satélite da NASA (Blue Marble) em alta resolução
- *  - Esfera mais lisa (mais divisões na malha)
- *  - Oceano com brilho e continentes foscos (mapa especular)
- *  - Céu estrelado ao fundo
+ * O planeta fica PARADO no centro da cena. Quem se move é a câmera, que
+ * anda em volta dele olhando sempre para o centro:
+ *  - arrastar o mouse leva a câmera para os lados e para cima/baixo;
+ *  - o scroll aproxima ou afasta a câmera;
+ *  - ao soltar o mouse, a câmera continua deslizando e vai parando aos poucos;
+ *  - sem mexer por alguns segundos, a câmera gira devagar sozinha;
+ *  - duplo clique volta para a vista inicial (Atlântico, com o Brasil).
  *
- * Controles: arraste o mouse para girar/inclinar e use o scroll para o zoom.
+ * Como o planeta não gira, cada ponto dele mantém a mesma latitude e
+ * longitude, o que facilita descobrir a região clicada nas próximas versões.
  *
- * Arquivos em src/main/resources (todos opcionais; sem eles o programa
- * continua rodando com cores simples):
- *   earth_texture.jpg   - mapa-múndi equirretangular (proporção 2:1)
- *   earth_specular.png  - mapa de brilho (branco = oceano brilhante)
- *   stars.jpg           - céu estrelado
- *
- * Para rodar no Eclipse: Run As > Maven build... > Goals: clean compile javafx:run
+ * Imagens em resources (opcionais): earth_texture.jpg, earth_specular.png, stars.jpg.
  */
 public class Main extends Application {
 
-    private static final double SPHERE_RADIUS = 200;
+    private static final double RADIUS = 200;
 
-    // Controle de rotação do globo
-    private final Rotate rotateX = new Rotate(-20, Rotate.X_AXIS);
-    private final Rotate rotateY = new Rotate(-30, Rotate.Y_AXIS);
+    // Distâncias da câmera ao centro do planeta
+    private static final double MIN_DIST = 250;
+    private static final double MAX_DIST = 1600;
+    private static final double START_DIST = 720;
 
-    private double mouseAnchorX;
-    private double mouseAnchorY;
-    private double anchorAngleX;
-    private double anchorAngleY;
+    // Vista inicial: câmera sobre o Atlântico, perto do Brasil
+    private static final double START_LON = -40;
+    private static final double START_LAT = 5;
+
+    // Ajustes de movimento
+    private static final double DEGREES_PER_PIXEL = 0.30;   // à distância inicial
+    private static final double INERTIA_DECAY = 3.2;         // maior = para mais rápido
+    private static final double FOLLOW_SPEED = 11;           // suavização do giro
+    private static final double ZOOM_FOLLOW_SPEED = 8;       // suavização do zoom
+    private static final double AUTO_ROTATE_DEG_PER_SEC = 1.6;
+    private static final double AUTO_ROTATE_DELAY_SEC = 5;
+    private static final double MAX_PITCH = 85;
+
+    // A câmera orbita com: giro em Y (yaw), giro em X (pitch) e afastamento em Z
+    private final Rotate yaw = new Rotate(0, Rotate.Y_AXIS);
+    private final Rotate pitch = new Rotate(0, Rotate.X_AXIS);
+    private final Translate cameraOffset = new Translate(0, 0, -START_DIST);
+
+    // A luz acompanha a câmera (mesmos giros), um pouco acima e à esquerda
+    private final Rotate lightYaw = new Rotate(0, Rotate.Y_AXIS);
+    private final Rotate lightPitch = new Rotate(0, Rotate.X_AXIS);
+    private final Translate lightOffset = new Translate(-420, -320, -START_DIST - 100);
+
+    // Valores alvo (o que o usuário pediu) e atuais (o que aparece na tela)
+    private double targetYaw = -START_LON;
+    private double targetPitch = -START_LAT;
+    private double targetDist = START_DIST;
+    private double curYaw = targetYaw;
+    private double curPitch = targetPitch;
+    private double curDist = targetDist;
+
+    // Estado do mouse e da inércia
+    private boolean dragging;
+    private double lastX;
+    private double lastY;
+    private long lastDragNanos;
+    private long lastInteractionNanos = System.nanoTime();
+    private double velYaw;    // graus por segundo
+    private double velPitch;
 
     @Override
     public void start(Stage stage) {
         Sphere sky = buildSky();
         Sphere earth = buildEarth();
 
-        // Só o globo gira; céu e luzes ficam parados
-        Group globe = new Group(earth);
-        globe.getTransforms().addAll(rotateX, rotateY);
+        PerspectiveCamera camera = new PerspectiveCamera(true);
+        camera.setNearClip(1);
+        camera.setFarClip(10000);
+        camera.getTransforms().addAll(yaw, pitch, cameraOffset);
 
         PointLight sun = new PointLight(Color.WHITE);
-        sun.setTranslateX(-500);
-        sun.setTranslateY(-300);
-        sun.setTranslateZ(-800);
+        sun.getTransforms().addAll(lightYaw, lightPitch, lightOffset);
 
         AmbientLight ambient = new AmbientLight(Color.rgb(45, 50, 65));
 
-        Group root = new Group(sky, globe, sun, ambient);
+        // O planeta e o céu ficam parados: só a câmera (e a luz) se movem
+        Group root = new Group(sky, earth, sun, ambient, camera);
 
         Scene scene = new Scene(root, 900, 650, true, SceneAntialiasing.BALANCED);
         scene.setFill(Color.BLACK);
-
-        PerspectiveCamera camera = new PerspectiveCamera(true);
-        camera.setTranslateZ(-700);
-        camera.setNearClip(1);
-        camera.setFarClip(10000);
         scene.setCamera(camera);
 
         attachMouseControls(scene);
-        attachZoomControl(scene, camera);
+        attachZoomControl(scene);
+        applyCamera();
 
-        stage.setTitle("Horizon Earth - Globo 3D");
+        new AnimationTimer() {
+            private long last;
+
+            @Override
+            public void handle(long now) {
+                if (last == 0) {
+                    last = now;
+                    return;
+                }
+                double dt = Math.min((now - last) / 1e9, 0.05);
+                last = now;
+                update(dt, now);
+            }
+        }.start();
+
+        stage.setTitle("Horizon Earth - Planeta 3D");
         stage.setScene(scene);
         stage.show();
     }
 
-    /**
-     * Cria a esfera do planeta com a textura de satélite.
-     * Se a imagem não for encontrada, usa uma cor sólida como fallback.
-     */
+    /** Roda a cada quadro: inércia, rotação automática e suavização. */
+    private void update(double dt, long now) {
+        if (!dragging) {
+            // inércia: a câmera continua andando e vai desacelerando
+            targetYaw += velYaw * dt;
+            targetPitch += velPitch * dt;
+            double decay = Math.exp(-INERTIA_DECAY * dt);
+            velYaw *= decay;
+            velPitch *= decay;
+
+            // rotação automática lenta depois de um tempo sem mexer
+            double idle = (now - lastInteractionNanos) / 1e9;
+            if (idle > AUTO_ROTATE_DELAY_SEC && Math.abs(velYaw) < 1 && Math.abs(velPitch) < 1) {
+                double ease = Math.min(1, (idle - AUTO_ROTATE_DELAY_SEC) / 2);
+                targetYaw += AUTO_ROTATE_DEG_PER_SEC * ease * dt;
+            }
+        }
+        targetPitch = clamp(targetPitch, -MAX_PITCH, MAX_PITCH);
+
+        // suavização: o valor atual persegue o alvo com uma curva exponencial
+        double follow = 1 - Math.exp(-FOLLOW_SPEED * dt);
+        double zoomFollow = 1 - Math.exp(-ZOOM_FOLLOW_SPEED * dt);
+        curYaw += (targetYaw - curYaw) * follow;
+        curPitch += (targetPitch - curPitch) * follow;
+        curDist += (targetDist - curDist) * zoomFollow;
+
+        applyCamera();
+    }
+
+    private void applyCamera() {
+        yaw.setAngle(curYaw);
+        pitch.setAngle(curPitch);
+        cameraOffset.setZ(-curDist);
+
+        lightYaw.setAngle(curYaw);
+        lightPitch.setAngle(curPitch);
+        lightOffset.setZ(-curDist - 100);
+    }
+
+    /** Arrastar com o mouse leva a câmera em volta do planeta. */
+    private void attachMouseControls(Scene scene) {
+        scene.setOnMousePressed((MouseEvent e) -> {
+            dragging = true;
+            lastX = e.getSceneX();
+            lastY = e.getSceneY();
+            lastDragNanos = System.nanoTime();
+            lastInteractionNanos = lastDragNanos;
+            velYaw = 0;
+            velPitch = 0;
+        });
+
+        scene.setOnMouseDragged((MouseEvent e) -> {
+            long now = System.nanoTime();
+            double dx = e.getSceneX() - lastX;
+            double dy = e.getSceneY() - lastY;
+            lastX = e.getSceneX();
+            lastY = e.getSceneY();
+
+            // perto do planeta o arrasto fica mais lento e preciso
+            double factor = clamp((curDist - RADIUS) / (START_DIST - RADIUS), 0.12, 2.0);
+            double sens = DEGREES_PER_PIXEL * factor;
+
+            double dYaw = dx * sens;      // arrastar para a direita: a câmera vai para a esquerda
+            double dPitch = -dy * sens;   // arrastar para cima: a câmera desce
+            targetYaw += dYaw;
+            targetPitch = clamp(targetPitch + dPitch, -MAX_PITCH, MAX_PITCH);
+
+            // velocidade do arrasto, usada na inércia ao soltar
+            double dtEvent = Math.max((now - lastDragNanos) / 1e9, 0.008);
+            velYaw = 0.5 * velYaw + 0.5 * (dYaw / dtEvent);
+            velPitch = 0.5 * velPitch + 0.5 * (dPitch / dtEvent);
+            lastDragNanos = now;
+            lastInteractionNanos = now;
+        });
+
+        scene.setOnMouseReleased((MouseEvent e) -> {
+            long now = System.nanoTime();
+            dragging = false;
+            lastInteractionNanos = now;
+            // se o usuário parou antes de soltar, não há inércia
+            if ((now - lastDragNanos) / 1e9 > 0.08) {
+                velYaw = 0;
+                velPitch = 0;
+            }
+        });
+
+        // duplo clique: volta para a vista inicial
+        scene.setOnMouseClicked((MouseEvent e) -> {
+            if (e.getClickCount() == 2) {
+                targetYaw = nearestEquivalent(-START_LON, curYaw);
+                targetPitch = -START_LAT;
+                targetDist = START_DIST;
+                velYaw = 0;
+                velPitch = 0;
+                lastInteractionNanos = System.nanoTime();
+            }
+        });
+    }
+
+    /** O scroll aproxima ou afasta a câmera, com transição suave. */
+    private void attachZoomControl(Scene scene) {
+        scene.addEventHandler(ScrollEvent.SCROLL, e -> {
+            targetDist = clamp(targetDist * Math.exp(-e.getDeltaY() * 0.002), MIN_DIST, MAX_DIST);
+            lastInteractionNanos = System.nanoTime();
+        });
+    }
+
+    /** Cria a esfera do planeta com a textura de satélite (ela não gira). */
     private Sphere buildEarth() {
-        Sphere sphere = new Sphere(SPHERE_RADIUS, 128);
+        Sphere sphere = new Sphere(RADIUS, 128);
         PhongMaterial material = new PhongMaterial();
 
         Image texture = loadImage("/earth_texture.jpg");
@@ -111,10 +261,7 @@ public class Main extends Application {
         return sphere;
     }
 
-    /**
-     * Esfera enorme em volta de tudo, com o céu estrelado por dentro.
-     * CullFace.FRONT faz aparecer o lado de dentro da esfera.
-     */
+    /** Esfera enorme em volta de tudo, com o céu estrelado por dentro. */
     private Sphere buildSky() {
         Sphere dome = new Sphere(4000, 64);
         dome.setCullFace(CullFace.FRONT);
@@ -122,7 +269,6 @@ public class Main extends Application {
         PhongMaterial material = new PhongMaterial(Color.BLACK);
         Image stars = loadImage("/stars.jpg");
         if (stars != null) {
-            // Autoiluminação: as estrelas brilham sem depender da luz da cena
             material.setSelfIlluminationMap(stars);
         }
         dome.setMaterial(material);
@@ -144,39 +290,14 @@ public class Main extends Application {
         }
     }
 
-    /** Permite girar o globo arrastando o mouse. */
-    private void attachMouseControls(Scene scene) {
-        scene.setOnMousePressed((MouseEvent event) -> {
-            mouseAnchorX = event.getSceneX();
-            mouseAnchorY = event.getSceneY();
-            anchorAngleX = rotateX.getAngle();
-            anchorAngleY = rotateY.getAngle();
-        });
-
-        scene.setOnMouseDragged((MouseEvent event) -> {
-            double deltaX = event.getSceneX() - mouseAnchorX;
-            double deltaY = event.getSceneY() - mouseAnchorY;
-
-            // Arrastar para os lados gira o globo em volta do eixo dos polos
-            rotateY.setAngle(anchorAngleY + deltaX * 0.3);
-
-            // Arrastar para cima/baixo inclina o globo, limitado a +-90 graus
-            // para ele nunca virar de cabeça para baixo (como no Google Earth)
-            double tilt = anchorAngleX - deltaY * 0.3;
-            rotateX.setAngle(Math.max(-90, Math.min(90, tilt)));
-        });
+    private static double clamp(double value, double min, double max) {
+        return Math.max(min, Math.min(max, value));
     }
 
-    /** Permite dar zoom com o scroll do mouse. */
-    private void attachZoomControl(Scene scene, PerspectiveCamera camera) {
-        scene.addEventHandler(ScrollEvent.SCROLL, event -> {
-            double zoomDelta = event.getDeltaY() * 0.8;
-            double newZ = camera.getTranslateZ() + zoomDelta;
-
-            // Limita o quanto dá pra aproximar/afastar
-            newZ = Math.max(-1500, Math.min(-300, newZ));
-            camera.setTranslateZ(newZ);
-        });
+    /** Escolhe o ângulo equivalente (mais 360 graus) mais perto do atual, para não dar voltas à toa. */
+    private static double nearestEquivalent(double angle, double reference) {
+        double turns = Math.round((reference - angle) / 360.0);
+        return angle + turns * 360.0;
     }
 
     public static void main(String[] args) {
